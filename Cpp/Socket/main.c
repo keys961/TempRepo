@@ -15,14 +15,14 @@ extern int errno;
 int currentStatus = 0; //0: unconnect, 1: connect
 
 void printMenu();
-void receiveMessage();//Sub-thread (TODO)
+void receiveMessage(int sockfd, struct sockaddr_in serverAddr);//Sub-thread (TODO)
 //Menu operations
 void connectToServer(int sockfd, struct sockaddr_in serverAddr);
 void disconnectFromServer(int sockfd, struct sockaddr_in serverAddr);
 void getTimeFromServer(int sockfd, struct sockaddr_in serverAddr); //CMD: "TIME" (TODO)
 void getNameFromServer(int sockfd, struct sockaddr_in serverAddr); //CMD: "NAME" (TODO)
 void getClientsFromServer(int sockfd, struct sockaddr_in serverAddr); //CMD: "LIST" (TODO)
-void sentMsgToAnotherClient(int sockfd, struct sockaddr_in serverAddr); //CMD: "$ID $MSG"
+void sendMsgToAnotherClient(int sockfd, struct sockaddr_in serverAddr); //CMD: "$ID $MSG"
 
 int main(int argc, char *argv[]) //1, Server IP; 2, Server Port
 {
@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) //1, Server IP; 2, Server Port
         return -1;
     }
 
-    if((sockfd = socket(AF_INET, SOCK_STREAM, 0) == -1)
+    if((sockfd = socket(AF_INET, SOCK_STREAM, 0) == -1))
     {
         printf("Error: Fail to create socket. ERRNO: %d\n", errno);
         return -1;
@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) //1, Server IP; 2, Server Port
     //Set server ip & port
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_port = htons(atoi(argv[2]));
-    serverAddr.sin_addr = inet_addr(argv[1]);
+    serverAddr.sin_addr.s_addr = inet_addr(argv[1]);
     bzero(&(serverAddr.sin_zero), 8);
 
     int selectOption = 0;
@@ -71,13 +71,16 @@ int main(int argc, char *argv[]) //1, Server IP; 2, Server Port
                 getClientsFromServer(sockfd, serverAddr);
                 break;
             case 6:
-                sentMsgToAnotherClient(sockfd, serverAddr);
+                sendMsgToAnotherClient(sockfd, serverAddr);
                 break;
             case 7:
                 break;
             default:
                 printf("Error: Input command error!\n");
         }
+        printf("\n\n");
+        printMenu();
+        scanf("%d", &selectOption);
     }
 
     printf("Bye!\n");
@@ -97,7 +100,7 @@ void printMenu()
     printf("7. Exit.\n");
 }
 
-void receiveMessage()//TODO
+void receiveMessage(int sockfd, struct sockaddr_in serverAddr)//TODO
 {
     while(currentStatus)//connected
     {
@@ -121,6 +124,7 @@ void connectToServer(int sockfd, struct sockaddr_in serverAddr)
 
     currentStatus = 1;
     //invoke a thread
+
 }
 
 void disconnectFromServer(int sockfd, struct sockaddr_in serverAddr)
@@ -184,7 +188,7 @@ void getClientsFromServer(int sockfd, struct sockaddr_in serverAddr)
     //Wait for sub-thread
 }
 
-void sentMsgToAnotherClient(int sockfd, struct sockaddr_in serverAddr)
+void sendMsgToAnotherClient(int sockfd, struct sockaddr_in serverAddr)
 {
     if(currentStatus == 0)
     {
