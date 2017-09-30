@@ -12,12 +12,45 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <time.h>
 
 #define MSGKEY 1024
+#define MAXNUMOFCONNECT 100
 
 extern int errno;
 
 int currentStatus = 0; //0: unconnect, 1: connect
+struct ReceiveArgs arg; //需要变为全局变量，如果定义在connectToServer函数中，函数返回时变量就被销毁了，而线程执行的函数中有指向这个变量的指针，
+                        //如果connect函数返回后线程才开始执行，那么指针所指向的内容就是不确定的。
+
+struct ClientInfo 
+{
+    int connectfd; //与客户端连接的服务端socket描述符
+    int id; //客户端编号
+    char ip[20]; //客户端ip
+    int port; //客户端端口号
+};
+
+struct Request 
+{
+    int type; //表示请求的类型。0表示请求时间，1表示请求服务器名字，2表示请求客户端列表，3表示请求转发消息，4表示服务端向客户端转发消息
+    int id; //接受转发消息的目标客户端编号
+    char message[200]; //消息
+};
+
+struct Response {
+    int type; //同请求包，增加4表示服务端向客户端转发消息
+    time_t timeInSecond; //返回时间。表示从公元 1970 年1 月1 日的UTC 时间从0 时0 分0 秒算起到现在所经过的秒数。响应的转换由客户端完成
+    char serverName[20]; //服务器名字
+    struct ClientInfo clientList[MAXNUMOFCONNECT]; //客户端列表
+    int numOfConnect; //服务器的连接的客户端的数量。
+    int success; //0表示消息转发成功，1表示消息转发失败
+    char error[50]; //保存转发消息时的出错信息
+    struct ClientInfo client; //保存源客户端信息
+    char message[200]; //消息
+};
+
+
 
 struct ReceiveArgs
 {
@@ -57,7 +90,7 @@ int main(int argc, char *argv[]) //1, Server IP;
     //bzero(&serverAddr, sizeof(serverAddr));
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_addr.s_addr = inet_addr(argv[1]);
-    serverAddr.sin_port = htons(6666);
+    serverAddr.sin_port = htons(2100);
     bzero(&(serverAddr.sin_zero), 8);
 
     //msgq
@@ -123,25 +156,18 @@ void* receiveMessage(void* arg)
 {
     int sockfd = ((struct ReceiveArgs*)arg)->sockfd;
     struct sockaddr_in serverAddr = ((struct ReceiveArgs*)arg)->serverAddr;
-    // int msqId = msgget(MSGKEY, IPC_EXCL); //Create msg queue
-    // if(msqId < 0)
-    // {
-    //     printf("ERROR: Failed to find the message queue! ERRNO: %d\n", errno);
-    //     exit(-1);
-    // }
 
-    char buffer[2048] = {0,};
+    struct Response resp; 
     while(currentStatus > 0)//connected
     {
-       // printf("IN subthread\n");
-        int totalLen = 0;
+        int totalLen = sizeof(resp);
         int len;
-        bzero((void*)buffer, sizeof(buffer));
-        void* ptr = buffer;
-        if((len = recv(sockfd, ptr, sizeof(buffer), MSG_DONTWAIT)))
+        bzero((void*)&resp, sizeof(resp));
+        void* ptr = &resp;
+        while((len = recv(sockfd, ptr, totalLen, MSG_DONTWAIT)) && totalLen)
         {
             //printf("Receiving...\n");
-            if(len < 0)
+            if(len <= 0)
             {
                 if(errno != EAGAIN && errno != EWOULDBLOCK && errno != EINTR)
                 {
@@ -150,13 +176,34 @@ void* receiveMessage(void* arg)
                 }
             }
             else
-                printf("Received: %s\n", buffer);
+            {
+                totalLen -= len;
+                ptr = (char*)ptr + len;
+            }
         }
-        // if(totalLen > 0) //If msg exists
-        // {
-        //     //print to msg
-        //     printf("%s\n", buffer);
-        // }
+
+        switch(resp.type)
+        {
+            case 0: 
+                printf("Current time: %s\n", ctime(&resp.timeInSecond));
+                break;
+            case 1:
+                printf("Server name: %s\n", resp.serverName);
+                break;
+            case 2:
+                for(int i = 0; i < resp.numOfConnect; i++)
+                    printf("Client ID: %d, IP: %s, Port: %d.\n", resp.clientList[i].id, resp.clientList[i].ip, resp.clientList[i].port);
+                break;
+            case 3:
+                if(!resp.success)
+                    printf("Send message success!\n");
+                else
+                    printf("Send message error!, MSG: %s\n", resp.error);
+                break;
+            case 4:
+                printf("From client %d, ip = %s, port = %d: %s\n", resp.client.id, resp.client.ip, resp.client.port, resp.message);
+                break;
+        }
     }
 }
 
@@ -183,7 +230,6 @@ void connectToServer(int sockfd, struct sockaddr_in* serverAddr)
     printf("Connect success!\n");
     //invoke a thread
     pthread_t subThread;
-    struct ReceiveArgs arg;
     arg.serverAddr = *serverAddr;
     arg.sockfd = sockfd;
     if(pthread_create(&subThread, NULL, (void*)receiveMessage, (void*)&arg))
@@ -217,8 +263,9 @@ void getTimeFromServer(int sockfd, struct sockaddr_in serverAddr)
        // connectToServer(sockfd, serverAddr);
        return;
     }
-    char msg[128] = "TIME"; //Command: TIME
-    if(send(sockfd, (void*)msg, sizeof(msg), MSG_DONTWAIT) < 0)
+    struct Request reqTime;
+    reqTime.type = 0;
+    if(send(sockfd, (void*)&reqTime, sizeof(reqTime), MSG_DONTWAIT) < 0)
     {
         printf("ERROR: Request error! ERRNO: %d\n",errno);
         return;
@@ -232,8 +279,9 @@ void getNameFromServer(int sockfd, struct sockaddr_in serverAddr)
         printf("ERROR: The client has not been connected to the server!\n");
         return;
     }
-    char msg[128] = "NAME"; //Command: NAME
-    if(send(sockfd, (void*)msg, sizeof(msg), MSG_DONTWAIT) < 0)
+    struct Request reqName; //Command: NAME
+    reqName.type = 1;
+    if(send(sockfd, (void*)&reqName, sizeof(reqName), MSG_DONTWAIT) < 0)
     {
         printf("ERROR: Request error! ERRNO: %d\n",errno);
         return;
@@ -247,8 +295,9 @@ void getClientsFromServer(int sockfd, struct sockaddr_in serverAddr)
         printf("ERROR: The client has not been connected to the server!\n");
         return;
     }
-    char msg[128] = "LIST"; //Command: LIST
-    if(send(sockfd, (void*)msg, sizeof(msg), MSG_DONTWAIT) < 0)
+    struct Request reqList; //Command: LIST
+    reqList.type = 2;
+    if(send(sockfd, (void*)&reqList, sizeof(reqList), MSG_DONTWAIT) < 0)
     {
         printf("ERROR: Request error! ERRNO: %d\n",errno);
         return;
@@ -264,18 +313,20 @@ void sendMsgToAnotherClient(int sockfd, struct sockaddr_in serverAddr)
     }
     printf("Please input your destination client's id and message ended with ENTER:\n");
     printf("Format: $id $msg.\n");
-    char msg[1030];
-    getchar();
-    gets(msg);
+    struct Request req;
+    req.type = 3;
+    scanf("%d", &req.id);
+    scanf("%s", req.message);
     int n = 0;
-    char* ptr = msg;
-    while((n = send(sockfd, ptr, strlen(ptr), MSG_DONTWAIT)))
+    int len = sizeof(struct Request);
+    void* ptr = &req;
+    while((n = send(sockfd, ptr, len - n, MSG_DONTWAIT)))
     {
         if(n <= 0)
         {
             printf("ERROR: Send message error! ERNNO: %d\n", errno);
             return;
         }
-        ptr = ptr + n;
+        ptr = (char*)ptr + n;
     }
 }
