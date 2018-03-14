@@ -5,8 +5,7 @@
 %}
 %%
 \n { lineCount++; letterCount++; }
-[A-Za-z]+ { wordCount++; letterCount += yyleng; }
-[0-9]+ { wordCount++; letterCount += yyleng; }
+[A-Za-z0-9]+ { wordCount++; letterCount += yyleng; }
 . { letterCount++; }
 %%
 int yywrap()
@@ -16,6 +15,12 @@ int yywrap()
 
 int main(int argc, char* argv[])
 {
+	/**
+	  way to use:
+	  $ lex lab1.l
+	  $ gcc -o lab1 lex.yy.c
+	  $ ./lab1 <test-text-file> # Can use wc to check the answer  
+	**/
 	yyin = fopen(argv[1], "r");
 	yylex();
 	fclose(yyin);
