@@ -62,7 +62,7 @@
 
 
 /* Copy the first part of user declarations.  */
-#line 1 "lab3.y" /* yacc.c:339  */
+#line 1 "lab3_3150102210.y" /* yacc.c:339  */
 
 #define YYSTYPE double
 #include <stdio.h>
@@ -1208,55 +1208,55 @@ yyreduce:
   switch (yyn)
     {
         case 5:
-#line 18 "lab3.y" /* yacc.c:1646  */
+#line 18 "lab3_3150102210.y" /* yacc.c:1646  */
     { printf("\tValue = %f\n", (yyvsp[-1]));}
 #line 1214 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 20 "lab3.y" /* yacc.c:1646  */
+#line 20 "lab3_3150102210.y" /* yacc.c:1646  */
     {(yyval)=(yyvsp[0]);}
 #line 1220 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 21 "lab3.y" /* yacc.c:1646  */
+#line 21 "lab3_3150102210.y" /* yacc.c:1646  */
     {(yyval)=(yyvsp[-2])+(yyvsp[0]);}
 #line 1226 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 22 "lab3.y" /* yacc.c:1646  */
+#line 22 "lab3_3150102210.y" /* yacc.c:1646  */
     {(yyval)=(yyvsp[-2])-(yyvsp[0]);}
 #line 1232 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 23 "lab3.y" /* yacc.c:1646  */
+#line 23 "lab3_3150102210.y" /* yacc.c:1646  */
     {(yyval)=(yyvsp[-2])*(yyvsp[0]);}
 #line 1238 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 24 "lab3.y" /* yacc.c:1646  */
+#line 24 "lab3_3150102210.y" /* yacc.c:1646  */
     {(yyval)=(yyvsp[-2])/(yyvsp[0]);}
 #line 1244 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 25 "lab3.y" /* yacc.c:1646  */
+#line 25 "lab3_3150102210.y" /* yacc.c:1646  */
     {(yyval)=pow((yyvsp[-2]),(yyvsp[0]));}
 #line 1250 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 26 "lab3.y" /* yacc.c:1646  */
+#line 26 "lab3_3150102210.y" /* yacc.c:1646  */
     {(yyval)=-(yyvsp[0]);}
 #line 1256 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 27 "lab3.y" /* yacc.c:1646  */
+#line 27 "lab3_3150102210.y" /* yacc.c:1646  */
     {(yyval)=(yyvsp[-1]);}
 #line 1262 "y.tab.c" /* yacc.c:1646  */
     break;
@@ -1490,12 +1490,12 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 30 "lab3.y" /* yacc.c:1906  */
+#line 30 "lab3_3150102210.y" /* yacc.c:1906  */
 
 
 int main()
 {
-    printf("\nPlease input your math expression end with ENTER or EOF:\n");
+    printf("\nPlease input your math expression (numbers are considered as real numbers) ended with ENTER or EOF:\n");
     yyparse();
     return 0;
 }

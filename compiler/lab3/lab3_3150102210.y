@@ -31,7 +31,7 @@ exp: NUM {$$=$1;}
 
 int main()
 {
-    printf("\nPlease input your math expression end with ENTER or EOF:\n");
+    printf("\nPlease input your math expression (numbers are considered as real numbers) ended with ENTER or EOF:\n");
     yyparse();
     return 0;
 }
