@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间，指定对应的Dao-->
+<mapper namespace="org.yejt.vocabularysearch.mapper.VocabularyMapper">
+
+    <!--使用resultType指定输出类型-->
+    <select id="findVocabularyByWord"
+            resultType="Vocabulary">
+        SELECT * FROM vocabulary WHERE word = #{word}
+    </select>
+    <!--<resultMap id="vocabularyResultMap" type="org.yejt.vocabularysearch.entity.Vocabulary">-->
+        <!--<id property="id" column="id"/>-->
+    <!--</resultMap>-->
+</mapper>
