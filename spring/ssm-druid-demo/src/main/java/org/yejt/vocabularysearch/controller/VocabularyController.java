@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.yejt.vocabularysearch.entity.User;
 import org.yejt.vocabularysearch.entity.Vocabulary;
 import org.yejt.vocabularysearch.mapper.VocabularyMapper;
 import org.yejt.vocabularysearch.repository.VocabularyRepository;
@@ -45,5 +46,15 @@ public class VocabularyController
         model.addAttribute("word", vocabulary);
 
         return "vocabulary";
+    }
+
+    @PostMapping(value = "/login", produces = "application/json",
+            consumes = "application/json;charset=utf-8")
+    public ResponseEntity<User> testPost(@RequestBody User user)
+    {
+        user.setPassword("123456");
+        user.setUsername("654321");
+
+        return ResponseEntity.ok(user);
     }
 }

@@ -134,6 +134,12 @@ public class ImportVocabularyHandler
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        TreeSet set = new TreeSet();
+        set.lower()
+        set.ceiling();
+        TreeMap map = new TreeMap();
+
     }
     
 }
