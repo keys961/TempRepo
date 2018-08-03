@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: io.micronaut.configuration:hibernate-validator:1.0.0.M3">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.micronaut.configuration/hibernate-validator/1.0.0.M3/ac1fc5c546e640f726fb16fea588be24abd74c4/hibernate-validator-1.0.0.M3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.micronaut.configuration/hibernate-validator/1.0.0.M3/ff0fce6f9cd29a1a5d924cec6331a766582e205/hibernate-validator-1.0.0.M3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

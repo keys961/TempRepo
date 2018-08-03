@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: io.micronaut.configuration:hibernate-jpa:1.0.0.M3">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.micronaut.configuration/hibernate-jpa/1.0.0.M3/686ed1f3ab41c7165c3c569f78ac76be2b410e22/hibernate-jpa-1.0.0.M3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.micronaut.configuration/hibernate-jpa/1.0.0.M3/7a916e699180b0e53d0944acfbde3281b09e77fc/hibernate-jpa-1.0.0.M3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: io.micronaut:jdbc:1.0.0.M3">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.micronaut/jdbc/1.0.0.M3/d2db1485cf384936979f4886227001c0f209037/jdbc-1.0.0.M3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.micronaut/jdbc/1.0.0.M3/abd1d698f77a1facbddec1c54570f64e7ef6d700/jdbc-1.0.0.M3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
