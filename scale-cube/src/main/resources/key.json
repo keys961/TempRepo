@@ -1,0 +1,29 @@
+{
+  "id":"6C4A46886108D105C383",
+  "host":"192.168.211.1",
+  "port":57272,
+  "tags":{},
+  "serviceRegistrations":
+  [
+    {
+      "namespace":"yejt.service.GreetingService",
+      "contentType":"application/json",
+      "tags":{},
+      "methods":
+      [
+        {
+          "action":"greetingStream",
+          "contentType":"application/json",
+          "tags":{},
+          "communicationMode":"REQUEST_STREAM"
+        },
+        {
+          "action":"greeting",
+          "contentType":"application/json",
+          "tags":{},
+          "communicationMode":"REQUEST_RESPONSE"
+        }
+      ]
+    }
+  ]
+}
