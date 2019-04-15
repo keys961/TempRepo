@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/scale-cube.iml" filepath="$PROJECT_DIR$/.idea/scale-cube.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/scale-cube_main.iml" filepath="$PROJECT_DIR$/.idea/modules/scale-cube_main.iml" group="scale-cube" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/scale-cube_test.iml" filepath="$PROJECT_DIR$/.idea/modules/scale-cube_test.iml" group="scale-cube" />
+    </modules>
+  </component>
+</project>
