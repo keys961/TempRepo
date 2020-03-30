@@ -28,17 +28,14 @@ public class CepApp {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
         env.setParallelism(1);
-
         DataStream<Event> input = env.readTextFile("cep_data.txt")
                 .map(line -> {
                     String[] elements = line.split("\\s+");
                     return new Event(Integer.parseInt(elements[0]), System.currentTimeMillis(), elements[1]);
-                })
-                .assignTimestampsAndWatermarks(new AssignerWithPeriodicWatermarks<Event>() {
+                }).assignTimestampsAndWatermarks(new AssignerWithPeriodicWatermarks<Event>() {
                     private long currentMaxTime = 0L;
                     @Override
                     public Watermark getCurrentWatermark() {
-                        // Perfect watermarks
                         return new Watermark(currentMaxTime);
                     }
                     @Override
@@ -49,30 +46,25 @@ public class CepApp {
                 });
 
         DataStream<Event> partitionedInput = input.keyBy(Event::getId);
-
         Pattern<Event, ?> pattern = Pattern.<Event>begin("start")
                 .next("middle").where(new SimpleCondition<Event>() {
                     @Override
-                    public boolean filter(Event value) throws Exception {
+                    public boolean filter(Event value) {
                         return value.getName().equals("error");
                     }
                 }).followedBy("end").where(new SimpleCondition<Event>() {
                     @Override
-                    public boolean filter(Event value) throws Exception {
+                    public boolean filter(Event value) {
                         return value.getName().equals("critical");
                     }
                 }).within(Time.seconds(10));
 
         PatternStream<Event> patternStream = CEP.pattern(partitionedInput, pattern);
-        DataStream<ComplexEvent> ceStream = patternStream.select(new PatternSelectFunction<Event, ComplexEvent>() {
-            @Override
-            public ComplexEvent select(Map<String, List<Event>> map) throws Exception {
-                System.out.println(map);
-                List<Event> eventList = new ArrayList<>();
-                map.forEach((k, v) -> eventList.addAll(v));
-                eventList.sort((e1, e2) -> (int) (e1.getTime() - e2.getTime()));
-                return new ComplexEvent(eventList.get(0).getId(), eventList);
-            }
+        DataStream<ComplexEvent> ceStream = patternStream.select(simpleEventDetails -> {
+            List<Event> eventList = new ArrayList<>();
+            simpleEventDetails.forEach((k, v) -> eventList.addAll(v));
+            eventList.sort((e1, e2) -> (int) (e1.getTime() - e2.getTime()));
+            return new ComplexEvent(eventList.get(0).getId(), eventList);
         });
         ceStream.print();
         env.execute("cep-pattern");
