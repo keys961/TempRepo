@@ -5,14 +5,11 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.errors.WakeupException;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.time.Duration;
-import java.util.Collections;
 import java.util.Properties;
 
-import static com.example.springsourcecode.KafkaConstants.PIPE_OUTPUT;
-import static com.example.springsourcecode.KafkaConstants.WC_OUTPUT;
+import static com.example.springsourcecode.KafkaConstants.*;
 
 public class KafkaConsumerApp {
 
@@ -24,7 +21,7 @@ public class KafkaConsumerApp {
         properties.put("value.deserializer", StringDeserializer.class);
 
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties);
-        consumer.subscribe(Lists.newArrayList(PIPE_OUTPUT, WC_OUTPUT));
+        consumer.subscribe(Lists.newArrayList(PIPE_OUTPUT, WC_OUTPUT, PIPE_OUTPUT_1));
         Runtime.getRuntime().addShutdownHook(new Thread("streams-shutdown-hook") {
             @Override
             public void run() {

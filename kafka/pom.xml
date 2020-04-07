@@ -34,6 +34,11 @@
             <artifactId>netty-all</artifactId>
             <version>4.1.46.Final</version>
         </dependency>
+        <dependency>
+            <groupId>org.caffinitas.ohc</groupId>
+            <artifactId>ohc-core</artifactId>
+            <version>0.7.0</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka -->
         <dependency>
             <groupId>org.apache.kafka</groupId>
@@ -52,8 +57,11 @@
             <artifactId>kafka-clients</artifactId>
             <version>2.4.1</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>net.openhft</groupId>
+            <artifactId>chronicle-map</artifactId>
+            <version>3.19.4</version>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
