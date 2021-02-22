@@ -1,0 +1,17 @@
+[package]
+name = "minigrep"
+version = "0.1.0"
+authors = ["keys961 <keys961@hotmail.com>"]
+edition = "2018"
+license = "Apache-2.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+regex = "1"
+
+[profile.dev]
+opt-level = 0
+
+[profile.release]
+opt-level = 3

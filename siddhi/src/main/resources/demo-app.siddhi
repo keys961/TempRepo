@@ -1,0 +1,12 @@
+@App:name("demo-app")
+@App:description("demo-app")
+-- Please refer to http://wso2.github.io/siddhi/documentation/siddhi-4.0/
+define stream EventStream(id int, name string);
+
+partition with (id of EventStream)
+begin
+    from every e1=EventStream[e1.name = 'start'],
+        e2=EventStream[e2.name = 'middle'],
+
+
+end;

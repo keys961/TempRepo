@@ -1,0 +1,19 @@
+.info-alert
+{
+    padding:15px;
+    margin-bottom:20px;
+    border:1px solid transparent;
+    border-radius:4px
+}
+
+.info-alert-dismissible
+{
+    padding-right:35px
+}
+
+.info-alert-danger
+{
+    color:#a94442;
+    background-color:#f2dede;
+    border-color:#ebccd1
+}

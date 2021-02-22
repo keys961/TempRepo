@@ -1,0 +1,19 @@
+micronaut:
+  application:
+    name: hello-world
+  server:
+    port: 8080
+
+datasources:
+  default:
+    url: jdbc:mysql://localhost:3306/vocabulary
+    username: root
+    password: 123456
+    driverClassName: com.mysql.jdbc.Driver
+jpa:
+  default:
+    packages-to-scan:
+      - "hello.world.entity"
+    properties:
+      hibernate:
+        show_sql: true
