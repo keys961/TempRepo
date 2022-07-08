@@ -1,0 +1,21 @@
+server:
+  host: 127.0.0.1
+  port: 8001
+  read_timeout: 30s
+  write_timeout: 30s
+app:
+  # log_file: ./log/tcp.log
+  upload_save_path: ./static/img
+  upload_server_url: http://127.0.0.1:8080/static/img
+mysql:
+  host: 127.0.0.1:3306
+  username: root
+  password: 123456
+  db: test
+  charset: utf8mb4
+  parse_time: true
+  max_idle_conns: 10
+  max_open_conns: 30
+redis:
+  host: 127.0.0.1:6379
+  db: 0

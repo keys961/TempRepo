@@ -1,0 +1,22 @@
+<div id="nav">
+    <div id="nav-menu">
+        <ul>
+            <li><a href="/">Home</a></li>
+            {{if .IsLogin}}
+                <li><a href="/user/profile">Profile</a></li>
+            {{end}}
+        </ul>
+    </div>
+
+    <div id="nav-login">
+        <ul>
+            {{if .IsLogin}}
+                <li><a href="javascript:void(0)" onclick="logout()">Logout</a></li>
+            {{else}}
+                <li><a href="/user/login">Login</a></li>
+                <li><a href="/user/register">Register</a></li>
+            {{end}}
+        </ul>
+    </div>
+
+</div>

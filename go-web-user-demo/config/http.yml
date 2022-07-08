@@ -1,0 +1,17 @@
+server:
+  host: 127.0.0.1
+  port: 8080
+  read_timeout: 30s
+  write_timeout: 30s
+app:
+  # log_file: ./log/http.log
+  upload_save_path: ./static
+  upload_server_url: http://127.0.0.1:8080/static
+redis:
+  host: 127.0.0.1:6379
+  db: 0
+rpc:
+  host: 127.0.0.1:8001
+  maxConn: 50
+  maxIdle: 30
+  maxIdleTime: 30

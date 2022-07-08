@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Register</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/login.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/sheet.css">
+    <script src="/static/js/lib/jquery-3.3.1.min.js"></script>
+    <script src="/static/js/lib/jquery.url.js"></script>
+    <script src="/static/js/entry-task.js"></script>
+</head>
+<body>
+{{template "nav.gohtml" .}}
+
+<div class="htmleaf-container">
+    <div class="wrapper">
+        <div class="container">
+            <h1>Register</h1>
+            <form id="register-form" class="form">
+                <input type="text" name="username" placeholder="Username">
+                <input type="text" name="nickname" placeholder="Nickname">
+                <input type="password" name="password" placeholder="Password" id="register-password">
+                <br>
+                <button type="submit" id="register-button">Register</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

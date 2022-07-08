@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Profile</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/login.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/sheet.css">
+    <script src="/static/js/lib/jquery-3.3.1.min.js"></script>
+    <script src="/static/js/lib/jquery.url.js"></script>
+    <script src="/static/js/entry-task.js"></script>
+</head>
+<body>
+{{template "nav.gohtml" .}}
+
+<div class="htmleaf-container">
+    <div class="wrapper">
+        <div class="container">
+            <h1>Profile</h1>
+            <form id="avatar-form" enctype="multipart/form-data" method="post">
+                <img src="{{.Avatar}}" width="150" height="200" alt="AVATAR">
+                <input type="file" id="avatar-upload-file" name="upload">
+                <input type="button" id="avatar-upload-button" value="Upload">
+            </form>
+            <form id="profile-form" class="form">
+                <input type="text" name="username" placeholder="Username" value="{{.Username}}" readonly>
+                <input type="text" name="nickname" placeholder="Nickname" value="{{.Nickname}}">
+                <br>
+                <button type="submit" id="profile-update-button">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
