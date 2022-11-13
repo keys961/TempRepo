@@ -143,6 +143,9 @@ Task<void, LooperExecutor> consumer2(Channel<int> &channel) {
 }
 
 Task<std::string, LooperExecutor> http_get(std::string host, std::string path) {
+    // this coroutine is initially suspended and resumed by another LoopExecutor
+    // so in this coroutine, it will be executed/scheduled on another LoopExecutor
+    // not same as test_http()
     httplib::Client cli(host);
 
     // block get response
@@ -160,7 +163,9 @@ Task<void, LooperExecutor> test_http() {
         // Looper thread
         debug("send request...");
 
-        // coroutine suspended, Looper thread empty
+        // current coroutine suspended, Looper thread empty, can do other things
+        // the awaiter's exec is current's (i.e. LooperExecutor)
+        // so the current coroutine will be resumed by Loop thread
         auto result = co_await http_get("https://api.github.com", "/users/keys961");
         // coroutine resumed by Looper thread
         debug("done.");
@@ -175,7 +180,7 @@ Task<void, LooperExecutor> test_http() {
 
 int main() {
     // created coroutine and initial suspend sequence() function (at line #0)
-    /*auto gen = sequence();
+    auto gen = sequence();
     while (gen.has_next()) {
         // call next() will resume sequence() function
         // and finally at co_await i++
@@ -190,9 +195,9 @@ int main() {
 
     auto simpleTask = simple_task();
     simpleTask.then([](int i) {
-       debug("simple task end: ", i);
+        debug("simple task end: ", i);
     }).catching([](std::exception &e) {
-       debug("error occurred", e.what());
+        debug("error occurred", e.what());
     });
     try {
         auto i = simpleTask.get_result();
@@ -209,7 +214,7 @@ int main() {
     // wait for coroutine finished
     p.get_result();
     c.get_result();
-    c2.get_result();*/
+    c2.get_result();
     debug("main")
     test_http().get_result();
 
