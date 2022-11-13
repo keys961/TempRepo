@@ -1,0 +1,64 @@
+image: docker:20.10.15
+
+# Just ignore lint & test & release
+stages:
+  - lint
+  - test
+  - build
+  - tag
+  - release
+
+variables:
+  # Disable TLS
+  DOCKER_TLS_CERTDIR: ""
+
+services:
+  - docker:20.10.15-dind
+
+before_script:
+  - docker info
+
+lint:
+  stage: lint
+  except:
+    - tags
+  script:
+    - echo "Lint job done." # Dumb
+
+test:
+  stage: test
+  except:
+    - tags
+  script:
+    - echo "Test job done." # Dumb
+
+build:
+  stage: build
+  only:
+    refs:
+      - master
+  script:
+    - docker login harbor.shopeemobile.com/ --username ${HARBOR_USERNAME} --password ${HARBOR_PASSWORD}
+    - docker build . -t entry-task:latest
+    - docker tag entry-task:latest harbor.shopeemobile.com/entry-task-jintao.ye/entry-task:latest
+    - docker push harbor.shopeemobile.com/entry-task-jintao.ye/entry-task:latest
+
+tag:
+  stage: tag
+  only:
+    refs:
+      - tags
+  script:
+    - echo ${CI_COMMIT_TAG}
+    - docker login harbor.shopeemobile.com/ --username ${HARBOR_USERNAME} --password ${HARBOR_PASSWORD}
+    - docker build . -t entry-task:${CI_COMMIT_TAG}
+    - docker tag entry-task:${CI_COMMIT_TAG} harbor.shopeemobile.com/entry-task-jintao.ye/entry-task:${CI_COMMIT_TAG}
+    - docker push harbor.shopeemobile.com/entry-task-jintao.ye/entry-task:${CI_COMMIT_TAG}
+
+release:
+  stage: release
+  only:
+    refs:
+      - tags
+  script:
+    - echo "entry-task:${CI_COMMIT_TAG} is released on Harbor."
