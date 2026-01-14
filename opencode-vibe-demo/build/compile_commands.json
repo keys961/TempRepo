@@ -1,0 +1,32 @@
+[
+{
+  "directory": "/home/keys961/Projects/opencode-demo2/build",
+  "command": "/usr/bin/g++  -I/home/keys961/Projects/opencode-demo2/include -g -std=c++20 -Wall -Wextra -Wpedantic -Werror -o CMakeFiles/producer.dir/src/producer.cpp.o -c /home/keys961/Projects/opencode-demo2/src/producer.cpp",
+  "file": "/home/keys961/Projects/opencode-demo2/src/producer.cpp",
+  "output": "CMakeFiles/producer.dir/src/producer.cpp.o"
+},
+{
+  "directory": "/home/keys961/Projects/opencode-demo2/build",
+  "command": "/usr/bin/g++  -I/home/keys961/Projects/opencode-demo2/include -g -std=c++20 -Wall -Wextra -Wpedantic -Werror -o CMakeFiles/consumer.dir/src/consumer.cpp.o -c /home/keys961/Projects/opencode-demo2/src/consumer.cpp",
+  "file": "/home/keys961/Projects/opencode-demo2/src/consumer.cpp",
+  "output": "CMakeFiles/consumer.dir/src/consumer.cpp.o"
+},
+{
+  "directory": "/home/keys961/Projects/opencode-demo2/build",
+  "command": "/usr/bin/g++  -I/home/keys961/Projects/opencode-demo2/include -g -std=c++20 -Wall -Wextra -Wpedantic -Werror -o CMakeFiles/ipc_launcher.dir/src/ipc_launcher.cpp.o -c /home/keys961/Projects/opencode-demo2/src/ipc_launcher.cpp",
+  "file": "/home/keys961/Projects/opencode-demo2/src/ipc_launcher.cpp",
+  "output": "CMakeFiles/ipc_launcher.dir/src/ipc_launcher.cpp.o"
+},
+{
+  "directory": "/home/keys961/Projects/opencode-demo2/build",
+  "command": "/usr/bin/g++  -I/home/keys961/Projects/opencode-demo2/include -g -std=c++20 -Wall -Wextra -Wpedantic -Werror -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/tests.dir/tests/test_smpc_queue_simple.cpp.o -c /home/keys961/Projects/opencode-demo2/tests/test_smpc_queue_simple.cpp",
+  "file": "/home/keys961/Projects/opencode-demo2/tests/test_smpc_queue_simple.cpp",
+  "output": "CMakeFiles/tests.dir/tests/test_smpc_queue_simple.cpp.o"
+},
+{
+  "directory": "/home/keys961/Projects/opencode-demo2/build",
+  "command": "/usr/bin/g++  -I/home/keys961/Projects/opencode-demo2/include -g -std=c++20 -Wall -Wextra -Wpedantic -Werror -DGTEST_HAS_PTHREAD=1 -o CMakeFiles/tests.dir/tests/test_spmc_queue.cpp.o -c /home/keys961/Projects/opencode-demo2/tests/test_spmc_queue.cpp",
+  "file": "/home/keys961/Projects/opencode-demo2/tests/test_spmc_queue.cpp",
+  "output": "CMakeFiles/tests.dir/tests/test_spmc_queue.cpp.o"
+}
+]

@@ -1,0 +1,62 @@
+Start testing: Jan 14 20:46 +08
+----------------------------------------------------------
+1/1 Testing: spmc_queue_tests
+1/1 Test: spmc_queue_tests
+Command: "/home/keys961/Projects/opencode-demo2/build/tests"
+Directory: /home/keys961/Projects/opencode-demo2/build
+"spmc_queue_tests" start time: Jan 14 20:46 +08
+Output:
+----------------------------------------------------------
+Running main() from ./googletest/src/gtest_main.cc
+[==========] Running 15 tests from 2 test suites.
+[----------] Global test environment set-up.
+[----------] 5 tests from SPMCQueueSimpleTest
+[ RUN      ] SPMCQueueSimpleTest.EmptyQueueInitialState
+[       OK ] SPMCQueueSimpleTest.EmptyQueueInitialState (101 ms)
+[ RUN      ] SPMCQueueSimpleTest.SinglePushPop
+[       OK ] SPMCQueueSimpleTest.SinglePushPop (102 ms)
+[ RUN      ] SPMCQueueSimpleTest.MultiplePushPop
+[       OK ] SPMCQueueSimpleTest.MultiplePushPop (102 ms)
+[ RUN      ] SPMCQueueSimpleTest.EmplaceBackBasic
+[       OK ] SPMCQueueSimpleTest.EmplaceBackBasic (102 ms)
+[ RUN      ] SPMCQueueSimpleTest.MultiConsumerScenario
+[       OK ] SPMCQueueSimpleTest.MultiConsumerScenario (102 ms)
+[----------] 5 tests from SPMCQueueSimpleTest (510 ms total)
+
+[----------] 10 tests from SPMCQueueTest
+[ RUN      ] SPMCQueueTest.EmptyQueueInitialState
+[       OK ] SPMCQueueTest.EmptyQueueInitialState (204 ms)
+[ RUN      ] SPMCQueueTest.SinglePushPop
+[       OK ] SPMCQueueTest.SinglePushPop (203 ms)
+[ RUN      ] SPMCQueueTest.MultiplePushPop
+[       OK ] SPMCQueueTest.MultiplePushPop (204 ms)
+[ RUN      ] SPMCQueueTest.EmplaceBackBasic
+[       OK ] SPMCQueueTest.EmplaceBackBasic (205 ms)
+[ RUN      ] SPMCQueueTest.EmplaceBackMultipleArgs
+[       OK ] SPMCQueueTest.EmplaceBackMultipleArgs (204 ms)
+[ RUN      ] SPMCQueueTest.PushMoveSemantics
+[       OK ] SPMCQueueTest.PushMoveSemantics (203 ms)
+[ RUN      ] SPMCQueueTest.PerformanceBenchmark
+Push Performance: 58479532 items/sec
+Pop Performance: 42372881 items/sec
+[       OK ] SPMCQueueTest.PerformanceBenchmark (204 ms)
+[ RUN      ] SPMCQueueTest.FixedSizeTypesCompile
+[       OK ] SPMCQueueTest.FixedSizeTypesCompile (206 ms)
+[ RUN      ] SPMCQueueTest.SingleProducerMultipleConsumers
+[       OK ] SPMCQueueTest.SingleProducerMultipleConsumers (203 ms)
+[ RUN      ] SPMCQueueTest.CapacityManagement
+[       OK ] SPMCQueueTest.CapacityManagement (203 ms)
+[----------] 10 tests from SPMCQueueTest (2045 ms total)
+
+[----------] Global test environment tear-down
+[==========] 15 tests from 2 test suites ran. (2557 ms total)
+[  PASSED  ] 15 tests.
+<end of output>
+Test time =   2.56 sec
+----------------------------------------------------------
+Test Passed.
+"spmc_queue_tests" end time: Jan 14 20:46 +08
+"spmc_queue_tests" time elapsed: 00:00:02
+----------------------------------------------------------
+
+End testing: Jan 14 20:46 +08

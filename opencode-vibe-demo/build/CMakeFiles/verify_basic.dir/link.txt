@@ -1,0 +1,1 @@
+/usr/bin/g++ -g CMakeFiles/verify_basic.dir/src/verify_basic.cpp.o -o verify_basic  -lpthread 

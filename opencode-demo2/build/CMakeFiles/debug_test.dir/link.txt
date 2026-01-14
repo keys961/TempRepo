@@ -1,0 +1,1 @@
+/usr/bin/g++ -g CMakeFiles/debug_test.dir/src/debug_test.cpp.o -o debug_test 

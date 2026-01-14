@@ -1,0 +1,1 @@
+/usr/bin/g++ -g CMakeFiles/smpc_demo.dir/src/smpc_demo.cpp.o CMakeFiles/smpc_demo.dir/src/FileProcessor.cpp.o -o smpc_demo  /usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.83.0 /usr/lib/x86_64-linux-gnu/libboost_atomic.so.1.83.0 

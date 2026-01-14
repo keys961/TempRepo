@@ -1,0 +1,1 @@
+/usr/bin/g++ -g CMakeFiles/consumer_simple.dir/src/consumer_simple.cpp.o -o consumer_simple  -lpthread 

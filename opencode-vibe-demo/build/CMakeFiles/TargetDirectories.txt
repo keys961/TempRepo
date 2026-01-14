@@ -1,0 +1,7 @@
+/home/keys961/Projects/opencode-demo2/build/CMakeFiles/producer.dir
+/home/keys961/Projects/opencode-demo2/build/CMakeFiles/consumer.dir
+/home/keys961/Projects/opencode-demo2/build/CMakeFiles/ipc_launcher.dir
+/home/keys961/Projects/opencode-demo2/build/CMakeFiles/tests.dir
+/home/keys961/Projects/opencode-demo2/build/CMakeFiles/test.dir
+/home/keys961/Projects/opencode-demo2/build/CMakeFiles/edit_cache.dir
+/home/keys961/Projects/opencode-demo2/build/CMakeFiles/rebuild_cache.dir
